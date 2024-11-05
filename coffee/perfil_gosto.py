@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import urllib.parse
 
 def init_session_state():
     if 'step' not in st.session_state:
@@ -211,18 +212,31 @@ def main():
         st.subheader("Sobre seu perfil")
         st.write(profile['description'])
         
-        cola, colb = st.columns(2)
-        with colb:
-            st.subheader("Suas preferências")
-            for char in profile['characteristics']:
-                st.write(f"• {char}")
-        with cola:
-            st.subheader("Cafés recomendados")
-            for rec in profile['recommendations']:
-                with st.container():
-                    st.markdown(f"**{rec['name']}** - {rec['price']}")
-                    st.write(rec['description'])
-                    st.write("---")
+        st.subheader("Suas preferências")
+        for char in profile['characteristics']:
+            st.write(f"• {char}")
+
+        # Cria a mensagem com os cafés recomendados
+        cafes_recomendados = [rec['name'] for rec in profile['recommendations']]
+        mensagem_whatsapp = f"Oi, realizei o teste de perfil de gosto e queria conhecer mais sobre o café {', '.join(cafes_recomendados)}."
+        mensagem_whatsapp_encoded = urllib.parse.quote(mensagem_whatsapp)
+
+        # Link para WhatsApp com a mensagem personalizada
+        whatsapp_link = f"https://wa.me/+5585989659006?text={mensagem_whatsapp_encoded}"
+        #wpp_img = st.image('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/100px-WhatsApp.svg.png')
+        # Exibe o botão para o WhatsApp
+        st.link_button(label= "📱Saiba mais sobre estes cafés via WhatsApp", url= whatsapp_link)
+
+        st.subheader("Cafés recomendados")
+
+        # Exibe os cafés recomendados e o link para WhatsApp
+        for rec in profile['recommendations']:
+            with st.container():
+                st.markdown(f"**{rec['name']}**")
+                st.write(rec['description'])
+                st.write("---")
+
+
         
         st.subheader("Dicas de preparo")
         for tip in profile['tips']:
