@@ -142,7 +142,7 @@ elif 'should_reset' in st.session_state and st.session_state.should_reset:
     # Limpar todos os campos
     st.session_state.nome = ""
     st.session_state.phone_number = ""
-    st.session_state.phone_input = ""
+    #st.session_state.phone_input = ""
     st.session_state.phone_valid = False
     st.session_state.validation_message = ""
     st.session_state.selected_score = None
