@@ -124,3 +124,18 @@ enviar = st.button("Enviar Resposta")
 
 if enviar and nome and phone_input and st.session_state.phone_valid and st.session_state.nota:
     insert_data(nome, re.sub(r'[^0-9]', '', st.session_state.phone_number), st.session_state.nota, produtos, comentario)
+    st.success("Resposta enviada com sucesso!")
+    
+    # Limpar todos os campos
+    st.session_state.nome = ""
+    st.session_state.phone_number = ""
+    st.session_state.phone_valid = False
+    st.session_state.validation_message = ""
+    comentario = ""
+    score = ""
+    nome = ""
+    st.session_state.selected_score = None
+    st.session_state.nota = ""
+    st.session_state.responses = []
+    
+    st.rerun()  # Atualiza a página após o envio

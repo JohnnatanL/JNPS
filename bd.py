@@ -22,6 +22,7 @@ def insert_data(nome, whats, nota, prod, coment):
     query = f"""INSERT INTO cafe.nps_response (nome_cliente, whatsapp, nota, produtos_pref, comentarios)
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (nome, whats, nota, prod, coment))
+    
 
     conn.commit()
     cursor.close()
