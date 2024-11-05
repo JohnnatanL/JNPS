@@ -134,16 +134,21 @@ if enviar and nome and phone_input and st.session_state.phone_valid and st.sessi
     insert_data(nome, re.sub(r'[^0-9]', '', st.session_state.phone_number), st.session_state.nota, produtos, comentario, curso_retorno)
     st.success("Resposta enviada com sucesso!")
     
+    # Adicionar um flag no session_state para controlar o reset
+    if 'should_reset' not in st.session_state:
+        st.session_state.should_reset = True
+        
+elif 'should_reset' in st.session_state and st.session_state.should_reset:
     # Limpar todos os campos
     st.session_state.nome = ""
     st.session_state.phone_number = ""
+    st.session_state.phone_input = ""
     st.session_state.phone_valid = False
     st.session_state.validation_message = ""
-    comentario = ""
-    score = ""
-    nome = ""
     st.session_state.selected_score = None
     st.session_state.nota = ""
     st.session_state.responses = []
+    st.session_state.should_reset = False
     
-    st.rerun()  # Atualiza a página após o envio
+    # Agora sim, recarregar a página
+    st.rerun()
