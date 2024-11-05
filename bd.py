@@ -2,7 +2,7 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 
-def insert_data(nome, whats, nota, prod, coment):
+def insert_data(nome, whats, nota, prod, coment, curso_ret):
     load_dotenv()
     # Acessa as variáveis de ambiente
     db_user = os.getenv("DB_USER")
@@ -19,9 +19,9 @@ def insert_data(nome, whats, nota, prod, coment):
     conn = psycopg2.connect(**conn_info)
 
     cursor = conn.cursor()
-    query = f"""INSERT INTO cafe.nps_response (nome_cliente, whatsapp, nota, produtos_pref, comentarios)
-    VALUES (%s, %s, %s, %s, %s);"""
-    cursor.execute(query, (nome, whats, nota, prod, coment))
+    query = f"""INSERT INTO cafe.nps_response (nome_cliente, whatsapp, nota, produtos_pref, comentarios, interesse_curso)
+    VALUES (%s, %s, %s, %s, %s, %s);"""
+    cursor.execute(query, (nome, whats, nota, prod, coment, curso_ret))
     
 
     conn.commit()

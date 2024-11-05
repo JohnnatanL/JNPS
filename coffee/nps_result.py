@@ -19,7 +19,6 @@ def check_password():
 
 # Verifica a senha antes de mostrar o conteúdo
 if check_password():
-    st.header("Resultados do NPS")
     # Carregar variáveis de ambiente
     load_dotenv()
     db_user = os.getenv("DB_USER")
@@ -37,12 +36,12 @@ if check_password():
     # Função para carregar dados
     @st.cache_data
     def carregar_dados():
-        query = "SELECT nome_cliente, whatsapp, nota, produtos_pref, comentarios FROM cafe.nps_response"
+        query = "SELECT nome_cliente, whatsapp, nota, produtos_pref, comentarios, interesse_curso FROM cafe.nps_response"
         conn = psycopg2.connect(**conn_info)
         cursor = conn.cursor()
         cursor.execute(query)
         result = cursor.fetchall()
-        colunas = ['nome_cliente', 'whatsapp', 'nota', 'produtos_pref', 'comentarios']
+        colunas = ['nome_cliente', 'whatsapp', 'nota', 'produtos_pref', 'comentarios', 'interesse_curso']
         df = pd.DataFrame(result, columns=colunas)
         df['nota'] = pd.to_numeric(df['nota'], errors='coerce')
         return df
@@ -64,7 +63,7 @@ if check_password():
     st.metric("NPS Score", f"{nps_score:.2f}")
 
     # Separar produtos preferidos em colunas individuais
-    cafe_tipos = ["100% Arábica", "Mogiana", "Cerrado", "Tradicional"]
+    cafe_tipos = ["Prensa Francesa", "V60", "Coado Tradicional", "Expresso"]
     for cafe in cafe_tipos:
         df[cafe] = df['produtos_pref'].apply(lambda x: cafe in x)
 
@@ -82,4 +81,4 @@ if check_password():
     st.subheader("Comentários dos Clientes")
     for _, row in df.iterrows():
         cafes_preferidos = [cafe for cafe in cafe_tipos if row[cafe]]
-        st.write(f"**{row['nome_cliente']} ({row['whatsapp']}):** {row['comentarios']} — Prefere: {', '.join(cafes_preferidos)}")
+        st.write(f"**{row['nome_cliente']} ({row['whatsapp']})** | {row['comentarios']} | Prefere: {', '.join(cafes_preferidos)} | Interesse no curso: {row['interesse_curso']}")

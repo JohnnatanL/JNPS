@@ -82,7 +82,7 @@ if st.session_state.validation_message:
     else:
         st.error(st.session_state.validation_message)
 
-st.write("Como você avalia nossa empresa?")
+st.write("Em uma escala de 0 a 10, qual é a probabilidade de você recomendar a nossa cafeteria para um amigo ou colega?")
 
 cola, colb = st.columns(2)
 with cola:
@@ -116,14 +116,22 @@ for col, label, score in buttons_config:
 with colb:
     colba, colbb, colbc, colbd, colbe = st.columns(5)
 
-produtos = st.multiselect("Qual café de sua preferência?", options=["Cerrado", "100% Arábica", "Mogiana", "Expresso", "Tradicional", "Extraforte"])
+produtos = st.multiselect("Qual café de sua preferência?", options=["Prensa Francesa", "V60", "Coado Tradicional", "Expresso"])
 
+curso = st.selectbox("Você teria interesse em participar de cursos práticos sobre cafés especiais?", options=["Sim, tenho muito interesse.", "Talvez, dependendo do conteúdo.", "Não tenho interesse no momento."])
+curso_retorno = ""
 comentario = st.text_area("Deixe seu comentário (opcional)")
 
 enviar = st.button("Enviar Resposta")
 
-if enviar and nome and phone_input and st.session_state.phone_valid and st.session_state.nota:
-    insert_data(nome, re.sub(r'[^0-9]', '', st.session_state.phone_number), st.session_state.nota, produtos, comentario)
+if enviar and nome and phone_input and st.session_state.phone_valid and st.session_state.nota and curso:
+    if curso[:3] == "Sim":
+        curso_retorno = "Sim"
+    elif curso[:3] == "Tal":
+        curso_retorno = "Talvez"
+    elif curso[:3] == "Não":
+        curso_retorno = "Não"
+    insert_data(nome, re.sub(r'[^0-9]', '', st.session_state.phone_number), st.session_state.nota, produtos, comentario, curso_retorno)
     st.success("Resposta enviada com sucesso!")
     
     # Limpar todos os campos
