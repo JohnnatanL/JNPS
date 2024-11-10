@@ -1,8 +1,8 @@
 import streamlit as st
 
 st.set_page_config(
-        page_title="Zona de Teste Cafeteria",
-        page_icon="☕",
+        page_title="10:27 / Cafeteria Artesanal🐑☕️",
+        page_icon="☕️",
         layout="wide"
     )
 

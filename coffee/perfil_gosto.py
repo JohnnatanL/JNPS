@@ -84,12 +84,10 @@ profiles = {
         'recommendations': [
             {
                 'name': 'Blend Tradicional Sul de Minas',
-                'price': 'R$ 35,90/250g',
                 'description': 'Blend de cafés do Sul de Minas com torra média, notas de chocolate e caramelo.'
             },
             {
                 'name': 'Café Bourbon Amarelo',
-                'price': 'R$ 42,90/250g',
                 'description': 'Café 100% Bourbon Amarelo com torra média e notas de chocolate ao leite.'
             }
         ],
@@ -110,12 +108,10 @@ profiles = {
         'recommendations': [
             {
                 'name': 'Geisha Panamenho',
-                'price': 'R$ 89,90/250g',
                 'description': 'Café raro com notas florais, jasmim e frutas cítricas.'
             },
             {
                 'name': 'Etiópia Yirgacheffe',
-                'price': 'R$ 69,90/250g',
                 'description': 'Café africano com notas de bergamota e flores.'
             }
         ],
@@ -136,12 +132,10 @@ profiles = {
         'recommendations': [
             {
                 'name': 'Blend Italiano',
-                'price': 'R$ 45,90/250g',
                 'description': 'Blend para espresso com notas de chocolate amargo e especiarias.'
             },
             {
                 'name': 'Cerrado Mineiro Extra Forte',
-                'price': 'R$ 39,90/250g',
                 'description': 'Café com torra escura e corpo intenso.'
             }
         ],
@@ -222,7 +216,7 @@ def main():
         mensagem_whatsapp_encoded = urllib.parse.quote(mensagem_whatsapp)
 
         # Link para WhatsApp com a mensagem personalizada
-        whatsapp_link = f"https://wa.me/+5585989659006?text={mensagem_whatsapp_encoded}"
+        whatsapp_link = f"https://wa.me/+5535999249817?text={mensagem_whatsapp_encoded}"
         #wpp_img = st.image('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/100px-WhatsApp.svg.png')
         # Exibe o botão para o WhatsApp
         st.link_button(label= "📱Saiba mais sobre estes cafés via WhatsApp", url= whatsapp_link)
